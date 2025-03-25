@@ -17,7 +17,7 @@ A modern frontend for the Todo GraphQL API, built using React, TypeScript, and A
 - **Framework:** React (Vite)
 - **GraphQL Client:** Apollo Client
 - **UI Library:** Material-UI
-- **State Management:** React Context & Apollo Cache
+- **State Management:** Apollo Cache Management
 - **Language:** TypeScript
 
 ## Getting Started
@@ -25,13 +25,13 @@ A modern frontend for the Todo GraphQL API, built using React, TypeScript, and A
 ### Prerequisites
 
 1. Install Node.js 18+  
-2. Install a package manager (npm or yarn)  
+2. Install a package manager (npm)  
 
 ### Installation
 
 #### 1. Clone the repository
 ```sh
-git clone (https://github.com/muhammad-ata123/Todo-app-fronted.git)
+git clone https://github.com/muhammad-ata123/Todo-app-fronted.git
 ```
 
 #### 2. Navigate to the project directory
@@ -52,10 +52,10 @@ touch .env
 ## Environment Variables
 
 The project uses the following environment variables:
+Note: copy this line and paste into the .env file 
 
 
 ```env
-Note: copy this line and paste into the .env file 
 
 VITE_GRAPHQL_BACKEND_URL=`http://localhost:3000/graphql`
 ```
