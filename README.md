@@ -74,22 +74,25 @@ Build and serve the optimized frontend.
 The application runs on `http://localhost:5173` by default.
 
 ## Project Structure
-
 The project is structured as follows:
 
-- **Components:** Reusable UI components (Header, Footer, TodoList, etc.)
-- **Pages:** Views like Home and TodoDetailPage
-- **GraphQL:** Queries, mutations, and fragments
-- **Utils:** Shared utility functions and types
-- **Assets:** Static files like images and icons
-- **Styles:** Global and component-specific styles
+📂 src/
+│── 📂 components/ → Reusable UI components (Header, Footer, TodoList, etc.)
+│── 📂 pages/ → Views like Home and TodoDetailPage
+│── 📂 graphql/ → Queries, mutations, and fragments
+│── 📂 utils/ → Shared utility functions and types
+│── 📂 assets/ → Static files like images and icons
+│── 📂 styles/ → Global and component-specific styles
+
 
 ## GraphQL Integration  
 
 The frontend interacts with the GraphQL API using Apollo Client. It includes:
 
 - Queries to fetch todos and details
+- Fragments: Used to ensure efficient and reusable GraphQL queries.
 - Mutations to create, update, and delete todos
+- TypeScript Typing: All GraphQL responses are strongly typed using Apollo Client’s TypeScript support
 - Apollo cache management for optimized performance
 
 ## UI & Styling  
