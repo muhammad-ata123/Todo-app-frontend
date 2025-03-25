@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { CssBaseline, Box, ThemeProvider, createTheme } from '@mui/material';
 
 import Home from './pages/Home';
@@ -31,18 +31,18 @@ const App: React.FC = () => {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            minHeight: '100vh', 
+            minHeight: '100vh',
             backgroundColor: (theme) => theme.palette.background.default,
           }}
         >
           <Header />
-          
+
           <Box
             component="main"
             sx={{
               flexGrow: 1,
-              py: 4, 
-              px: { xs: 2, sm: 3, md: 4 }, 
+              py: 4,
+              px: { xs: 2, sm: 3, md: 4 },
               maxWidth: '100%',
               width: '100%',
               margin: '0 auto',
@@ -52,9 +52,11 @@ const App: React.FC = () => {
               <Route path="/" element={<Home />} />
               <Route path="/todos" element={<TodoList />} />
               <Route path="/todo/:id" element={<TodoDetailPage />} />
+              {/* Redirect all other routes to Home */}
+              <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </Box>
-          
+
           <Footer />
         </Box>
       </Router>
