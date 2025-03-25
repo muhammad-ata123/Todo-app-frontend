@@ -7,8 +7,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DoneIcon from '@mui/icons-material/Done';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
-import { useMutation } from '@apollo/client';
-import { DELETE_TODO, TOGGLE_TODO_STATUS ,GET_TODOS} from '../../graphql/queries';
+import { useMutation, useQuery } from '@apollo/client';
+import { DELETE_TODO, TOGGLE_TODO_STATUS, GET_TODOS } from '../../graphql/queries';
 import EditTodoDialog from '../TodoForm/EditTodoDialog';
 
 interface TodoDetailProps {
@@ -22,14 +22,14 @@ interface TodoDetailProps {
 const TodoDetail: React.FC<TodoDetailProps> = ({ todo, onBack }) => {
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
-  const [getTodos] = useMutation(GET_TODOS);
   const [deleteTodo] = useMutation(DELETE_TODO);
+  const { refetch } = useQuery(GET_TODOS);
   const [toggleStatus] = useMutation(TOGGLE_TODO_STATUS);
 
   const handleDelete = async () => {
     try {
       await deleteTodo({ variables: { id: todo.id } });
-      await getTodos();
+      await refetch();
       onBack();
     } catch (error) {
       console.error("Error deleting todo:", error);
@@ -39,7 +39,7 @@ const TodoDetail: React.FC<TodoDetailProps> = ({ todo, onBack }) => {
   const handleToggleComplete = async () => {
     try {
       await toggleStatus({ variables: { id: todo.id } });
-      await getTodos();
+      await refetch();
     } catch (error) {
       console.error("Error toggling status:", error);
     }
