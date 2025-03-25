@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_TODOS } from '../../graphql/queries';
@@ -11,14 +12,13 @@ import {
   InputBase,
   IconButton,
   useMediaQuery,
-  Fab,
   Chip,
   Tabs,
   Tab,
   Alert,
   Skeleton
 } from '@mui/material';
-import { Search, Add, FilterList, Sort } from '@mui/icons-material';
+import { Search, FilterList, Sort } from '@mui/icons-material';
 import { styled, alpha } from '@mui/material/styles';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
@@ -41,16 +41,6 @@ const SearchPaper = styled(Paper)(({ theme }) => ({
   transition: theme.transitions.create(['background-color', 'box-shadow']),
   [theme.breakpoints.up('sm')]: {
     width: 'auto',
-  },
-}));
-
-const FloatingActionButton = styled(Fab)(({ theme }) => ({
-  position: 'fixed',
-  bottom: theme.spacing(3),
-  right: theme.spacing(3),
-  [theme.breakpoints.up('md')]: {
-    bottom: theme.spacing(4),
-    right: theme.spacing(4),
   },
 }));
 
@@ -209,12 +199,12 @@ const TodoList: React.FC = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
               sx={{ ml: 1 }}
             />
-            <IconButton sx={{ p: '10px' }} aria-label="filter">
+            {/* <IconButton sx={{ p: '10px' }} aria-label="filter">
               <FilterList />
             </IconButton>
             <IconButton sx={{ p: '10px' }} aria-label="sort">
               <Sort />
-            </IconButton>
+            </IconButton> */}
           </SearchPaper>
 
           <Chip 
@@ -261,14 +251,6 @@ const TodoList: React.FC = () => {
       <TabPanel value={tabValue} index={2}>
         {renderTodoList(completedTodos)}
       </TabPanel>
-
-      <FloatingActionButton 
-        color="primary" 
-        aria-label="add"
-        onClick={() => navigate('/todo/new')}
-      >
-        <Add />
-      </FloatingActionButton>
     </StyledContainer>
   );
 };
