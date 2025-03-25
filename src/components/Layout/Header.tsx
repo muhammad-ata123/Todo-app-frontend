@@ -1,78 +1,68 @@
-import { AppBar, Toolbar, IconButton, Button, Typography, Container, Box } from '@mui/material';
-import { DarkMode, LightMode, Add } from '@mui/icons-material';
+import { AppBar, Toolbar, Typography, Container, Box } from '@mui/material';
+import { RocketLaunch } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 
 const Header = () => {
-  const [darkMode, setDarkMode] = useState(true);
-
   return (
     <AppBar 
       position="fixed" 
       sx={{ 
-        backgroundColor: 'rgba(15, 23, 42, 0.8)', // slate-900 with opacity
+        backgroundColor: 'rgba(15, 23, 42, 0.95)',
         backdropFilter: 'blur(12px)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-        boxShadow: 'none',
-        py: 1
+        borderBottom: '1px solid rgba(226, 232, 240, 0.1)',
+        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.2)',
+        py: 1,
+        transition: 'all 0.3s ease',
+        '&:hover': {
+          backgroundColor: 'rgba(15, 23, 42, 1)',
+          boxShadow: '0 8px 40px rgba(0, 0, 0, 0.3)'
+        }
       }}
     >
       <Container maxWidth="xl">
-        <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
-          {/* Logo with gradient text */}
-          <Typography
+        <Toolbar disableGutters sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
+          <Box 
             component={Link}
             to="/"
-            variant="h6"
-            noWrap
             sx={{
-              mr: 2,
-              fontWeight: 700,
-              letterSpacing: '.1rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
               textDecoration: 'none',
-              background: 'linear-gradient(45deg, #9c27b0 30%, #ff4081 90%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
               '&:hover': {
-                background: 'linear-gradient(45deg, #ff4081 30%, #9c27b0 90%)',
-              },
-              transition: 'background 0.5s ease',
+                '& .logo-icon': {
+                  transform: 'rotate(15deg) scale(1.1)',
+                }
+              }
             }}
           >
-            TASKFLOW
-          </Typography>
-
-          {/* Right-side buttons */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <IconButton
-              onClick={() => setDarkMode(!darkMode)}
+            <RocketLaunch 
+              className="logo-icon"
               sx={{ 
-                color: 'text.secondary',
-                '&:hover': { 
-                  color: 'primary.main',
-                  backgroundColor: 'rgba(156, 39, 176, 0.1)' 
-                } 
-              }}
-            >
-              {darkMode ? <LightMode /> : <DarkMode />}
-            </IconButton>
-
-            <Button
-              component={Link}
-              to="/add-task"
-              variant="contained"
-              startIcon={<Add />}
+                fontSize: 28,
+                color: '#9c27b0',
+                transition: 'all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55)'
+              }} 
+            />
+            <Typography
+              variant="h6"
+              noWrap
               sx={{
-                background: 'linear-gradient(45deg, #9c27b0 30%, #ff4081 90%)',
+                fontWeight: 800,
+                letterSpacing: '.15rem',
+                background: 'linear-gradient(45deg, #9c27b0 20%, #3f51b5 80%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundSize: '200% auto',
+                animation: '$gradient 3s ease infinite',
                 '&:hover': {
-                  background: 'linear-gradient(45deg, #ff4081 30%, #9c27b0 90%)',
-                  boxShadow: '0 0 15px rgba(156, 39, 176, 0.4)',
+                  // background: 'linear-gradient(45deg, #3f51b5 20%, #9c27b0 80%)',
                 },
-                transition: 'all 0.3s ease',
+                transition: 'all 0.5s ease',
               }}
             >
-              New Task
-            </Button>
+              TODO TASK FLOW
+            </Typography>
           </Box>
         </Toolbar>
       </Container>
@@ -80,4 +70,4 @@ const Header = () => {
   );
 };
 
-export default Header
+export default Header;
