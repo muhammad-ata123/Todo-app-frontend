@@ -31,7 +31,7 @@ A modern frontend for the Todo GraphQL API, built using React, TypeScript, and A
 
 #### 1. Clone the repository
 ```sh
-git clone [<repository-url>](https://github.com/muhammad-ata123/Todo-app-fronted.git)
+git clone (https://github.com/muhammad-ata123/Todo-app-fronted.git)
 ```
 
 #### 2. Navigate to the project directory
