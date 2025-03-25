@@ -56,7 +56,6 @@ const Header = () => {
                 backgroundSize: '200% auto',
                 animation: '$gradient 3s ease infinite',
                 '&:hover': {
-                  // background: 'linear-gradient(45deg, #3f51b5 20%, #9c27b0 80%)',
                 },
                 transition: 'all 0.5s ease',
               }}

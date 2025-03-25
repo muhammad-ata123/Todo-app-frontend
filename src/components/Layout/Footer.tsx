@@ -6,7 +6,7 @@ const Footer = () => {
     <Box component="footer" sx={{ py: 4, backgroundColor: '#0f172a', textAlign: 'center' }}>
       <Container maxWidth="md">
         <Typography variant="h6" color="white" gutterBottom>
-          TASKFLOW
+        TODO TASK FLOW
         </Typography>
         <Typography variant="body2" color="gray" gutterBottom>
           Simplify your tasks with elegance and efficiency.
@@ -19,7 +19,7 @@ const Footer = () => {
           ))}
         </Box>
         <Typography variant="body2" color="gray" sx={{ mt: 2 }}>
-          © {new Date().getFullYear()} TaskFlow. All rights reserved.
+          © {new Date().getFullYear()} TODO TASK FLOW. All rights reserved.
         </Typography>
       </Container>
     </Box>
