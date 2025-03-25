@@ -49,15 +49,13 @@ const Home: React.FC = () => {
             onCancel={() => setIsFormOpen(false)}
           />
         ) : (
-          <TodoList
-            // initialTodos={data?.todos || []}
-          />
+          <TodoList />
         )}
         {!isFormOpen && (
           <Fab
             color="primary"
             aria-label="add"
-            sx={{ position: 'fixed', bottom: 16, right: 16 }}
+            sx={{ bgcolor: "#E2398F", ":hover": "#FF4081", position: 'fixed', bottom: 16, right: 16 }}
             onClick={() => setIsFormOpen(true)}
           >
             <Add />
