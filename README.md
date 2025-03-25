@@ -76,13 +76,12 @@ The application runs on `http://localhost:5173` by default.
 ## Project Structure
 The project is structured as follows:
 
-📂 src/
-│── 📂 components/ → Reusable UI components (Header, Footer, TodoList, etc.)
-│── 📂 pages/ → Views like Home and TodoDetailPage
-│── 📂 graphql/ → Queries, mutations, and fragments
-│── 📂 utils/ → Shared utility functions and types
-│── 📂 assets/ → Static files like images and icons
-│── 📂 styles/ → Global and component-specific styles
+- **Components:** Reusable UI components (Header, Footer, TodoList, etc.)
+- **Pages:** Views like Home and TodoDetailPage
+- **GraphQL:** Queries, mutations, and fragments
+- **Utils:** Shared utility functions and types
+- **Assets:** Static files like images and icons
+- **Styles:** Global and component-specific styles
 
 
 ## GraphQL Integration  
