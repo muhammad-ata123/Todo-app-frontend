@@ -1,57 +1,65 @@
-import React, { useState } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
-import { GET_TODOS, CREATE_TODO } from './graphql/queries';
-import { Todo } from './utils/todo.interface';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { CssBaseline, Box, ThemeProvider, createTheme } from '@mui/material';
 
-function App() {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const { loading, error, data } = useQuery(GET_TODOS);
+import Home from './pages/Home';
+import TodoDetailPage from './pages/TodoDetailPage';
+import Header from './components/Layout/Header';
+import Footer from './components/Layout/Footer';
+import TodoList from './components/TodoList/TodoList';
 
-  const [createTodo] = useMutation(CREATE_TODO, {
-    refetchQueries: [{ query: GET_TODOS }],
-  });
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#dc004e',
+    },
+  },
+  typography: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+  },
+});
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    createTodo({ variables: { title, description } });
-    setTitle('');
-    setDescription('');
-  };
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-
+const App: React.FC = () => {
   return (
-    <div style={{ display:'flex', justifyContent:"center", alignItems:"center" , flexDirection:"column" }}>
-      <h1>Todo App</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Title"
-          required
-        />
-        <input
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Description"
-        />
-        <button type="submit">Add Todo</button>
-      </form>
-      <ul>
-        {data?.todos.map((todo: Todo) => (
-          <li key={todo.id}>
-            <h3>{todo.title}</h3>
-            <p>{todo.description || 'No description'}</p>
-            <small>Status: {todo.completed ? '✅ Done' : '❌ Pending'}</small>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            minHeight: '100vh', 
+            backgroundColor: (theme) => theme.palette.background.default,
+          }}
+        >
+          <Header />
+          
+          <Box
+            component="main"
+            sx={{
+              flexGrow: 1,
+              py: 4, 
+              px: { xs: 2, sm: 3, md: 4 }, 
+              maxWidth: '100%',
+              width: '100%',
+              margin: '0 auto',
+            }}
+          >
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/todos" element={<TodoList />} />
+              <Route path="/todo/:id" element={<TodoDetailPage />} />
+            </Routes>
+          </Box>
+          
+          <Footer />
+        </Box>
+      </Router>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
