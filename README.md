@@ -52,10 +52,10 @@ touch .env
 ## Environment Variables
 
 The project uses the following environment variables:
-Note: copy this line and paste into the .env file 
 
 
 ```env
+Note: copy this line and paste into the .env file 
 
 VITE_GRAPHQL_BACKEND_URL=`http://localhost:3000/graphql`
 ```
