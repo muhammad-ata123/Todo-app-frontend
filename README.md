@@ -137,7 +137,8 @@ A modern frontend for the Todo GraphQL API, built using React, TypeScript, and A
 
 ## 🎥 Frontend UI Demo
 
-[![Watch Demo](https://raw.githubusercontent.com/muhammad-ata123/Todo-app-frontend/main/public/demo/demothumbnail.png)](https://raw.githubusercontent.com/muhammad-ata123/Todo-app-frontend/main/public/demo/Todo-App-Frontend-Demo.mp4)
+[![Watch the demo](public/demo/demothumbnail.png)](public/demo/Todo-App-Frontend-Demo.mp4)
+
 
 
 ## Features
