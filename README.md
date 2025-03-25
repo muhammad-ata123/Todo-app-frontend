@@ -2,6 +2,12 @@
 
 A modern frontend for the Todo GraphQL API, built using React, TypeScript, and Apollo Client. This project follows best practices for state management, UI design, and GraphQL querying.
 
+## 🎥 Frontend UI Demo
+
+[![Watch the demo](public/demo/demothumbnail.png)](public/demo/Todo-App-Frontend-Demo.mp4)
+
+
+
 ## Features
 
 - Modern UI with Material-UI
@@ -31,12 +37,12 @@ A modern frontend for the Todo GraphQL API, built using React, TypeScript, and A
 
 #### 1. Clone the repository
 ```sh
-git clone https://github.com/muhammad-ata123/Todo-app-fronted.git
+git clone https://github.com/muhammad-ata123/Todo-app-frontend.git
 ```
 
 #### 2. Navigate to the project directory
 ```sh
-cd Todo-app-fronted
+cd Todo-app-frontend
 ```
 
 #### 3. Install dependencies
