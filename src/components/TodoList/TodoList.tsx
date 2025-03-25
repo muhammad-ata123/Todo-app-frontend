@@ -88,7 +88,7 @@ const TodoList: React.FC = () => {
     return todos?.filter((todo: Todo) => {
       const matchesSearch = todo.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         todo.description?.toLowerCase().includes(searchTerm.toLowerCase());
-      
+
       if (completed !== null) {
         return matchesSearch && todo.completed === completed;
       }
@@ -144,16 +144,16 @@ const TodoList: React.FC = () => {
       <Paper sx={{
         p: 4,
         textAlign: 'center',
-        backgroundColor: theme.palette.mode === 'dark' ? 
-          alpha(theme.palette.grey[800], 0.6) : 
+        backgroundColor: theme.palette.mode === 'dark' ?
+          alpha(theme.palette.grey[800], 0.6) :
           alpha(theme.palette.grey[50], 0.8),
         borderRadius: '16px',
         backdropFilter: 'blur(8px)'
       }}>
         <Typography variant="h6" sx={{ mb: 1 }}>
-          {searchTerm ? 'No matching tasks found' : 
-           tabValue === 1 ? 'No active tasks' : 
-           tabValue === 2 ? 'No completed tasks' : 'No tasks yet'}
+          {searchTerm ? 'No matching tasks found' :
+            tabValue === 1 ? 'No active tasks' :
+              tabValue === 2 ? 'No completed tasks' : 'No tasks yet'}
         </Typography>
         <Typography variant="body1" color="text.secondary">
           {searchTerm ? 'Try a different search term' : 'Create your first task'}
@@ -181,9 +181,9 @@ const TodoList: React.FC = () => {
           Your Tasks
         </Typography>
 
-        <Box sx={{ 
-          display: 'flex', 
-          flexDirection: isMobile ? 'column' : 'row', 
+        <Box sx={{
+          display: 'flex',
+          flexDirection: isMobile ? 'column' : 'row',
           gap: 2,
           alignItems: isMobile ? 'stretch' : 'center',
           mb: 3
@@ -199,19 +199,13 @@ const TodoList: React.FC = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
               sx={{ ml: 1 }}
             />
-            {/* <IconButton sx={{ p: '10px' }} aria-label="filter">
-              <FilterList />
-            </IconButton>
-            <IconButton sx={{ p: '10px' }} aria-label="sort">
-              <Sort />
-            </IconButton> */}
           </SearchPaper>
 
-          <Chip 
-            label={`${currentTodos.length} ${tabValue === 1 ? 'active' : tabValue === 2 ? 'completed' : ''} tasks`} 
-            color="primary" 
+          <Chip
+            label={`${currentTodos.length} ${tabValue === 1 ? 'active' : tabValue === 2 ? 'completed' : ''} tasks`}
+            color="primary"
             variant="outlined"
-            sx={{ 
+            sx={{
               alignSelf: isMobile ? 'flex-end' : 'center',
               px: 2,
               py: 1.5,
@@ -221,9 +215,9 @@ const TodoList: React.FC = () => {
         </Box>
 
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs 
-            value={tabValue} 
-            onChange={handleTabChange} 
+          <Tabs
+            value={tabValue}
+            onChange={handleTabChange}
             variant={isMobile ? 'fullWidth' : 'standard'}
             centered={!isMobile}
           >
