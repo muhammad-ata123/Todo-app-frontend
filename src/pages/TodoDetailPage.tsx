@@ -5,16 +5,14 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { GET_TODOS } from '../graphql/queries';
 import { Todo } from '../utils/todo.interface';
 import TodoDetail from '../components/TodoDetail/TodoDetail';
-import Header from '../components/Layout/Header';
-import Footer from '../components/Layout/Footer';
 import { CircularProgress, Typography, Container, Box } from '@mui/material';
 
 const TodoDetailPage: React.FC = () => {
-    const { id } = useParams<{ id?: string }>(); // Ensure `id` is optional
+    const { id } = useParams<{ id?: string }>(); 
     const navigate = useNavigate();
 
     const { loading, error, data } = useQuery(GET_TODOS, {
-        skip: !id, // Prevent query if ID is missing
+        skip: !id,
     });
 
     if (loading) {
@@ -35,7 +33,6 @@ const TodoDetailPage: React.FC = () => {
 
     if (data) console.log('Fetched Data:', data);
 
-    // Ensure todos exist before finding the specific one
     const todo: Todo | undefined = data?.todos?.find((t: Todo) => t.id === id);
 
     if (!todo) {
@@ -62,7 +59,6 @@ const TodoDetailPage: React.FC = () => {
 
     return (
         <div className="min-h-screen flex flex-col">
-            <Header />
             <Container component="main" sx={{ flexGrow: 1, py: 4 }}>
                 <TodoDetail
                     todo={todo}
@@ -72,7 +68,6 @@ const TodoDetailPage: React.FC = () => {
                     onToggleComplete={handleToggleComplete}
                 />
             </Container>
-            <Footer />
         </div>
     );
 };
