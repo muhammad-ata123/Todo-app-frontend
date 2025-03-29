@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_TODOS } from '../../graphql/queries';

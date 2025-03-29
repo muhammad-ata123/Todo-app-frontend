@@ -27,8 +27,8 @@ interface TodoItemProps {
 const TodoItem: React.FC<TodoItemProps> = ({ onSelect, todo }) => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const completedColor = theme.palette.mode === 'dark' ? theme.palette.success.dark : theme.palette.success.light;
-  const activeColor = theme.palette.mode === 'dark' ? theme.palette.warning.dark : theme.palette.warning.light;
+  const completedColor =theme.palette.success.light;
+  const activeColor = theme.palette.warning.light;
 
   const singleTodo: Todo = todo;
   return (
