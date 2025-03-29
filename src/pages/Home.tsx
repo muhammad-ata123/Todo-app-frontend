@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
-import {
-  GET_TODOS, CREATE_TODO,
-
-} from '../graphql/queries';
+import { useMutation } from '@apollo/client';
+import { GET_TODOS, CREATE_TODO, } from '../graphql/queries';
 import { Box, Container, Fab } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import TodoForm from '../components/TodoForm/TodoForm';
@@ -11,7 +8,6 @@ import TodoList from '../components/TodoList/TodoList';
 
 const Home: React.FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const { loading, error, data } = useQuery(GET_TODOS);
   const [createTodo] = useMutation(CREATE_TODO, {
     refetchQueries: [{ query: GET_TODOS }],
   });
@@ -19,18 +15,13 @@ const Home: React.FC = () => {
     createTodo({ variables: { title, description } });
     setIsFormOpen(false);
   };
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Container component="main" sx={{ py: 3, flex: 1 }}>
         {isFormOpen ? (
           <TodoForm
             onSubmit={handleCreate}
-            onCancel={() => setIsFormOpen(false)}
-          />
+            onCancel={() => setIsFormOpen(false)} open={true} />
         ) : (
           <TodoList />
         )}

@@ -2,17 +2,17 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { useParams, useNavigate } from 'react-router-dom';
-import { GET_TODOS } from '../graphql/queries';
+import { GET_TODO } from '../graphql/queries';
 import { Todo } from '../utils/todo.interface';
 import TodoDetail from '../components/TodoDetail/TodoDetail';
 import { CircularProgress, Typography, Container, Box } from '@mui/material';
 
 const TodoDetailPage: React.FC = () => {
-    const { id } = useParams<{ id?: string }>(); 
+    const { id } = useParams<{ id?: string }>();
     const navigate = useNavigate();
 
-    const { loading, error, data } = useQuery(GET_TODOS, {
-        skip: !id,
+    const { data, loading, error } = useQuery(GET_TODO, {
+        variables: { id: String(id) },
     });
 
     if (loading) {
@@ -22,18 +22,17 @@ const TodoDetailPage: React.FC = () => {
             </Box>
         );
     }
-
     if (error) {
         return (
-            <Typography color="error" align="center" sx={{ mt: 4 }}>
-                Error: {error.message}
-            </Typography>
+            <Box sx={{ p: 2, bgcolor: 'error.light', borderRadius: 1 }}>
+                <Typography color="error" variant="h6">
+                    Oops! Something went wrong.
+                </Typography>
+                <Typography variant="body2">{error.message}</Typography>
+            </Box>
         );
     }
-
-    if (data) console.log('Fetched Data:', data);
-
-    const todo: Todo | undefined = data?.todos?.find((t: Todo) => t.id === id);
+    const todo: Todo = data?.todo;
 
     if (!todo) {
         return (
@@ -42,30 +41,12 @@ const TodoDetailPage: React.FC = () => {
             </Typography>
         );
     }
-
-    const handleToggleComplete = () => {
-        console.log('Toggling Todo Completion:', todo.id);
-        // updateTodo({ variables: { id: todo.id, completed: !todo.completed } });
-    };
-
-    const handleEdit = () => {
-        navigate(`/todo/${todo.id}/edit`);
-    };
-
-    const handleDelete = () => {
-        console.log('Deleting Todo:', todo.id);
-        // deleteTodo({ variables: { id: todo.id } });
-    };
-
     return (
         <div className="min-h-screen flex flex-col">
             <Container component="main" sx={{ flexGrow: 1, py: 4 }}>
                 <TodoDetail
                     todo={todo}
                     onBack={() => navigate('/')}
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
-                    onToggleComplete={handleToggleComplete}
                 />
             </Container>
         </div>

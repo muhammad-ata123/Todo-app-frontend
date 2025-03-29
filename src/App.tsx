@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { CssBaseline, Box, ThemeProvider, createTheme } from '@mui/material';
-
 import Home from './pages/Home';
 import TodoDetailPage from './pages/TodoDetailPage';
 import Header from './components/Layout/Header';
@@ -52,7 +51,6 @@ const App: React.FC = () => {
               <Route path="/" element={<Home />} />
               <Route path="/todos" element={<TodoList />} />
               <Route path="/todo/:id" element={<TodoDetailPage />} />
-              {/* Redirect all other routes to Home */}
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </Box>
