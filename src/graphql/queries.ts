@@ -11,7 +11,7 @@ export const GET_TODOS = gql`
 `;
 
 export const GET_TODO = gql`
-  query GetTodo($id: ID!) {
+  query GetTodo($id: String!) {
     todo(id: $id) {
       ...TodoFields
     }

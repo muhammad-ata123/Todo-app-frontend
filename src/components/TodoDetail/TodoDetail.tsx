@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import { Todo } from '../../utils/todo.interface';
 import { Card, CardContent, Typography, Button, Stack, Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Chip, Divider } from '@mui/material';
@@ -7,29 +6,46 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DoneIcon from '@mui/icons-material/Done';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
-import { useMutation, useQuery } from '@apollo/client';
-import { DELETE_TODO, TOGGLE_TODO_STATUS, GET_TODOS } from '../../graphql/queries';
+import { Reference, StoreObject, useMutation, useQuery } from '@apollo/client';
+import { DELETE_TODO, GET_TODOS, TOGGLE_TODO_STATUS } from '../../graphql/queries';
 import EditTodoDialog from '../TodoForm/EditTodoDialog';
 
 interface TodoDetailProps {
   todo: Todo;
   onBack: () => void;
-  onDelete: () => void;
-  onEdit: () => void;
-  onToggleComplete: () => void;
 }
 
 const TodoDetail: React.FC<TodoDetailProps> = ({ todo, onBack }) => {
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
-  const [deleteTodo] = useMutation(DELETE_TODO);
   const { refetch } = useQuery(GET_TODOS);
-  const [toggleStatus] = useMutation(TOGGLE_TODO_STATUS);
+  const [deleteTodo] = useMutation(DELETE_TODO, {
+    update(cache, { data: { deleteTodo } }) {
+      cache.modify({
+        fields: {
+          todos(existingTodos = [], { readField }) {
+            return existingTodos.filter((todo: Reference | StoreObject | undefined) => readField("id", todo) !== deleteTodo.id);
+          }
+        }
+      });
+    }
+  });
+
+  const [toggleStatus] = useMutation(TOGGLE_TODO_STATUS, {
+    update(cache, { data: { toggleTodoStatus } }) {
+      cache.modify({
+        id: cache.identify(toggleTodoStatus),
+        fields: {
+          completed: () => toggleTodoStatus.completed,
+        }
+      });
+    }
+  });
 
   const handleDelete = async () => {
     try {
-      await deleteTodo({ variables: { id: todo.id } });
-      await refetch();
+      await deleteTodo({ variables: { id: String(todo.id) } });
+      await refetch()
       onBack();
     } catch (error) {
       console.error("Error deleting todo:", error);
@@ -38,8 +54,8 @@ const TodoDetail: React.FC<TodoDetailProps> = ({ todo, onBack }) => {
 
   const handleToggleComplete = async () => {
     try {
-      await toggleStatus({ variables: { id: todo.id } });
-      await refetch();
+      await toggleStatus({ variables: { id: String(todo.id) } });
+      await refetch()
     } catch (error) {
       console.error("Error toggling status:", error);
     }

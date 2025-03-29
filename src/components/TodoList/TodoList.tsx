@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_TODOS } from '../../graphql/queries';
@@ -15,10 +14,9 @@ import {
   Chip,
   Tabs,
   Tab,
-  Alert,
   Skeleton
 } from '@mui/material';
-import { Search, FilterList, Sort } from '@mui/icons-material';
+import { Search } from '@mui/icons-material';
 import { styled, alpha } from '@mui/material/styles';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
@@ -76,7 +74,17 @@ const TodoList: React.FC = () => {
 
   const { loading, error, data } = useQuery(GET_TODOS);
 
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+  if (error) {
+    return (
+      <Box sx={{ p: 2, bgcolor: 'error.light', borderRadius: 1 }}>
+        <Typography color="error" variant="h6">
+          Oops! Something went wrong.
+        </Typography>
+        <Typography variant="body2">{error.message}</Typography>
+      </Box>
+    );
+  }
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
 
@@ -227,12 +235,6 @@ const TodoList: React.FC = () => {
           </Tabs>
         </Box>
       </Box>
-
-      {error && (
-        <Alert severity="error" sx={{ mb: 3 }}>
-          Error loading todos: {error.message}
-        </Alert>
-      )}
 
       <TabPanel value={tabValue} index={0}>
         {renderTodoList(allTodos)}
