@@ -18,7 +18,7 @@ const EditTodoDialog: React.FC<EditTodoDialogProps> = ({ open, onClose, todo }) 
   
   const [updateTodo] = useMutation(UPDATE_TODO, {
     onCompleted: () => {
-      onClose();
+      handleClose();
     },
     onError: (err) => {
       setError(err.message);
@@ -51,55 +51,65 @@ const EditTodoDialog: React.FC<EditTodoDialogProps> = ({ open, onClose, todo }) 
     }
   };
 
+  const handleClose = () => {
+    setError(null);
+    onClose();
+    setTimeout(() => {
+      const focusableElement = document.getElementById("focus-back");
+      if (focusableElement) {
+        focusableElement.focus();
+      }
+    }, 100);
+  };
+
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
-      <DialogTitle>Edit Todo</DialogTitle>
-      <DialogContent>
-        {error && (
-          <div style={{ color: 'red', marginBottom: '16px' }}>
-            {error}
-          </div>
-        )}
-        <TextField
-          autoFocus
-          margin="dense"
-          label="Title"
-          type="text"
-          fullWidth
-          variant="outlined"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          sx={{ mb: 2 }}
-          error={!!error && !title.trim()}
-          helperText={error && !title.trim() ? error : ''}
-        />
-        <TextField
-          margin="dense"
-          label="Description"
-          type="text"
-          fullWidth
-          variant="outlined"
-          multiline
-          rows={4}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose} disabled={isSubmitting}>
-          Cancel
-        </Button>
-        <Button 
-          onClick={handleSave} 
-          variant="contained" 
-          color="primary"
-          disabled={isSubmitting || !title.trim()}
-          startIcon={isSubmitting ? <CircularProgress size={20} /> : null}
-        >
-          {isSubmitting ? 'Saving...' : 'Save'}
-        </Button>
-      </DialogActions>
-    </Dialog>
+    <>
+      <button id="focus-back" style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }} />
+      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+        <DialogTitle>Edit Todo</DialogTitle>
+        <DialogContent>
+          {error && <div style={{ color: 'red', marginBottom: '16px' }}>{error}</div>}
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Title"
+            type="text"
+            fullWidth
+            variant="outlined"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            sx={{ mb: 2 }}
+            error={!!error && !title.trim()}
+            helperText={error && !title.trim() ? error : ''}
+          />
+          <TextField
+            margin="dense"
+            label="Description"
+            type="text"
+            fullWidth
+            variant="outlined"
+            multiline
+            rows={4}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} disabled={isSubmitting}>
+            Cancel
+          </Button>
+          <Button 
+            onClick={handleSave} 
+            variant="contained" 
+            color="primary"
+            disabled={isSubmitting || !title.trim()}
+            startIcon={isSubmitting ? <CircularProgress size={20} /> : null}
+          >
+            {isSubmitting ? 'Saving...' : 'Save'}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 
